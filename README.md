@@ -2,8 +2,8 @@
 
 This repository holds a (very) simple Docker image containing _just_
 Bundler and Jekyll. I created this to be able to generate an arm32v6
-image with this tools. Please refer to [official Jekyll images][1] for
-better functionality and support.
+image with these tools. Please refer to [official Jekyll images][1]
+for better functionality and support.
 
 [1]: https://github.com/envygeeks/jekyll-docker
 
@@ -28,7 +28,7 @@ docker run --rm \
   bundle exec jekyll serve --host 0.0.0.0
 ```
 
-Web site is now accesible at http://localhost:4000 on the host.
+Web site is now accessible at http://localhost:4000 on the host.
 
 ## Configuration
 
@@ -52,7 +52,7 @@ The process will attempt to install any dependencies that you list
 inside of `Gemfile`. If supplied, it will match the versions you have
 in `Gemfile.lock`.
 
-The defualt `Gemfile` is very minimal with only the gems required to
+The default `Gemfile` is very minimal with only the gems required to
 run Jekyll's example blog. It is expected that you overwrite this
 `Gemfile` with your own in order to generate a docker image with all
 the gems needed for your project.
