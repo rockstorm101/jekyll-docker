@@ -20,10 +20,10 @@ jobs:
         name: Set Metadata Variables
         run: >-
           if {{ matrix.ruby != env.LATEST_RUBY_VERSION }}; then
-            tmp="{{ format('ruby{0}', matrix.ruby) }}"
+            tmp="{{ format('ruby{0}', matrix.ruby) }}";
           else
-            tmp=""
-          fi
+            tmp="";
+          fi;
           echo "DOCKER_TAG_SUFFIX=$tmp" >> $GITHUB_ENV
       -
         name: Docker Metadata
