@@ -4,14 +4,39 @@ on:
   release:
     types:
       - created
-
 jobs:
   build-images:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [2.7, 3.1]
+    env:
+        LATEST_RUBY_VERSION = 3.1
     steps:
       -
         name: Checkout Code
         uses: actions/checkout@v3
+      -
+        name: Set Metadata Variables
+        run: >-
+          if {{ matrix.ruby != env.LATEST_RUBY_VERSION }}; then
+            tmp="{{ format('ruby{0}', matrix.ruby) }}"
+          else
+            tmp=""
+          fi
+          echo "DOCKER_TAG_SUFFIX=$tmp" >> $GITHUB_ENV
+      -
+        name: Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: rockstorm/jekyll
+          flavor:
+            suffix={{ env.DOCKER_TAG_SUFFIX }}
+          tags: |
+            type=semver,pattern={{major}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{version}}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -30,5 +55,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
+          build-args: RUBY_VERSION=${{ matrix.ruby }}
           push: true
-          tags: rockstorm/jekyll:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
