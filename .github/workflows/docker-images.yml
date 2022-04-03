@@ -3,21 +3,21 @@ name: Build Docker Images
 on:
   release:
     types:
-	  - created
+      - created
 
 jobs:
   build-images:
     runs-on: ubuntu-latest
     steps:
       -
-	    name: Set up QEMU
+        name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
-	    name: Set up Docker Buildx
+        name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -25,7 +25,7 @@ jobs:
         name: Build and Push
         uses: docker/build-push-action@v2
         with:
-		  context: .
-		  platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
           push: true
           tags: rockstorm/jekyll:latest
