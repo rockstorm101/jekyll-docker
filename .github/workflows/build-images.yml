@@ -11,7 +11,7 @@ jobs:
       matrix:
         ruby: [2.7, 3.1]
     env:
-        LATEST_RUBY_VERSION = 3.1
+        LATEST_RUBY_VERSION: 3.1
     steps:
       -
         name: Checkout Code
