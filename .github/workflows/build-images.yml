@@ -20,7 +20,7 @@ jobs:
         name: Set Metadata Variables
         run: >-
           if {{ matrix.ruby != env.LATEST_RUBY_VERSION }}; then
-            tmp="{{ format('ruby{0}', matrix.ruby) }}";
+            tmp="{{ format('-ruby{0}', matrix.ruby) }}";
           else
             tmp="";
           fi;
