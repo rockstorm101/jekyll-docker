@@ -1,17 +1,17 @@
-ARG RUBY_VERSION=3.1
-ARG ALPINE_VERSION=3.15
-FROM ruby:${RUBY_VERSION}-alpine${ALPINE_VERSION}
+FROM ruby:3.1-alpine3.15
 
 # Install dependencies
-RUN apk add --no-cache --virtual _builddeps \
-  g++ \
-  gcc \
-  make
+RUN set -eux; \
+  apk add --no-cache --virtual _builddeps \
+    g++ \
+    gcc \
+	make \
+  ;
 
 # Install bundler
 RUN gem install --no-document bundler
 
-# Install gems from the local Gemfile
+# Install gems from the local Gemfile and/or Gemfile.lock
 COPY Gemfile* ./
 RUN bundle install
 
@@ -25,4 +25,5 @@ WORKDIR ${JEKYLL_DATA_DIR}
 
 EXPOSE 4000
 
-CMD ["jekyll", "--help"]
+ENTRYPOINT ["bundle", "exec", "jekyll"]
+CMD ["--help"]
