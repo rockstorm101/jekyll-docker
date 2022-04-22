@@ -1,53 +1,23 @@
 name: Build Docker Images
 
 on:
-  release:
-    types:
-      - created
-
+  push:
+    tags:
+      - '**'
 jobs:
   build-images:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        ruby: [2.7, 3.1]
-    env:
-        LATEST_RUBY_VERSION: 3.1
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      - name: Set Tags
-        run: |
-          if ${{ contains(github.ref_name, 'slim') }}; then
-            tmp="-slim";
-            enable_latest=false;
-          else
-            tmp="";
-            enable_latest=true;
-          fi;
-          if ${{ matrix.ruby != env.LATEST_RUBY_VERSION }}; then
-            tmp="${tmp}${{ format('-ruby{0}', matrix.ruby) }}";
-            enable_latest=false;
-          fi;
-          echo "TAG_SUFFIX=$tmp" >> $GITHUB_ENV
-          echo "ENABLE_LATEST=$enable_latest" >> $GITHUB_ENV
 
       - name: Docker Metadata
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: rockstorm/jekyll
-          flavor: |
-            latest=false
-            suffix=${{ env.TAG_SUFFIX }}
-          tags: |
-            type=match,pattern=^(\d+),group=1
-            type=match,pattern=^(\d+.\d+),group=1
-            type=match,pattern=^(\d+.\d+.\d+),group=1
-            type=raw,value=latest,enable=${{ env.ENABLE_LATEST }}
+          tags: type=ref,event=tag
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -66,7 +36,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
-          build-args: RUBY_VERSION=${{ matrix.ruby }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
