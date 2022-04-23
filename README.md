@@ -31,6 +31,14 @@ docker run --rm \
 
 Web site is now accessible at http://localhost:4000 on the host.
 
+### Start New Jekyll Site
+
+```shell
+docker run --rm \
+  --volume="$PWD:/srv/jekyll:Z" \
+  rockstorm/jekyll new .
+```
+
 ## Configuration
 
 ### Additional Gems
