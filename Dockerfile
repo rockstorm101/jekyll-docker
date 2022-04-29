@@ -2,11 +2,11 @@ FROM ruby:3.1-alpine3.15
 
 # Install dependencies
 RUN set -eux; \
-  apk add --no-cache --virtual _builddeps \
-    g++ \
-    gcc \
-	make \
-  ;
+    apk add --no-cache --virtual _builddeps \
+        g++ \
+        gcc \
+        make \
+    ;
 
 # Install bundler
 RUN gem install --no-document bundler
@@ -19,8 +19,7 @@ RUN bundle install
 RUN apk del _builddeps
 
 # Create Jekyll working directory
-ENV JEKYLL_DATA_DIR /srv/jekyll
-RUN mkdir -p ${JEKYLL_DATA_DIR}
+ENV JEKYLL_DATA_DIR /tmp/jekyll
 WORKDIR ${JEKYLL_DATA_DIR}
 
 EXPOSE 4000
