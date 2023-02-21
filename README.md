@@ -48,6 +48,7 @@ docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) jekyll build
 
 Serve blog:
 ```
-docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) jekyll serve
+docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) -p 4000:4000 \
+    jekyll serve --host 0.0.0.0
 ```
 

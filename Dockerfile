@@ -29,5 +29,6 @@ RUN set -eux; \
         /root/.bundle/cache \
     ;
 
+EXPOSE 4000
 ENTRYPOINT ["bundler", "exec", "jekyll"]
 CMD ["--version"]
