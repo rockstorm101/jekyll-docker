@@ -9,7 +9,7 @@ else and therefore will be way faster.
 Copy this `Dockerfile`, place it next to your `Gemfile` and build as any other
 Docker image. If there is a `Gemfile.lock` file, it will (bundle) install the
 gems at the specified versions. Otherwise it will fetch the latest gems in
-accordance with `Gemfile`.
+accordance with your `Gemfile`.
 
 ```
 docker build -t jekyll .
@@ -28,10 +28,11 @@ docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) jekyll \
 ```
 
 
-### Update every gem to the latest
+### Add new gems or update every gem to the latest
 
-Delete `Gemfile.lock` and [build the image](#build-this-image). It will
-(bundle) install the latest gems in accordance with `Gemfile`.
+Update your `Gemfile` with new/updated dependencies. Delete `Gemfile.lock` and
+[build the image](#build-this-image). It will (bundle) install the latest gems
+in accordance with `Gemfile`.
 
 Then run the container empty to re-generate `Gemfile.lock`.
 ```
