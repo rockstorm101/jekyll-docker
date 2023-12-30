@@ -91,8 +91,9 @@ Certain gems require additional system packages in order to be installed or
 run. This can be achieved by adding a file named `packages` to your context
 with a list of packages that need to be installed.
 
-If you used any of the `builder`, `standard` or `minimal` [official images][2]
-before you might want to use one of the example `packages` files provided.
+TODO: If you used any of the `builder`, `standard` or `minimal` [official
+images][2] before you might want to use one of the example `packages` files
+provided.
 
 
 ### GitHub Pages
