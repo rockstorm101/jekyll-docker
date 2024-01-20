@@ -104,6 +104,19 @@ configured exactly as is used by [GitHub Pages][3].
 [3]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll
 
 
+License
+-------
+View [license information](LICENSE) for the software contained in this image.
+
+As with all Docker images, these likely also contain other software which may
+be under other licenses (such as Ruby or Jekyll) from the base distribution,
+along with any direct or indirect dependencies of the primary software being
+contained.
+
+It is the container user's responsibility to ensure that any use of their
+images complies with any relevant licenses for all software contained within.
+
+
 [^1]: Serving this way should only be done for development purposes. For
     production see documentation on [deployment][1]
 
