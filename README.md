@@ -39,14 +39,26 @@ docker build -t jekyll .
 
 Build:
 ```
-docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) jekyll build
+docker run --rm \
+    -v ${PWD}:/srv/jekyll \
+	-u $(id -u):$(id -g) \
+	jekyll build
 ```
 
 Serve[^1]:
 ```
-docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) -p 4000:4000 jekyll serve --host 0.0.0.0
+docker run --rm \
+    -v ${PWD}:/srv/jekyll \
+    -u $(id -u):$(id -g) \
+    -p 4000:4000 \
+    jekyll serve --host 0.0.0.0
 ```
 
+> If you use Podman instead of Docker, simply replace `docker` with `podman`
+> in the commands above and you can omit the `-u $(id -u):$(id -g)` bit.
+
+> Note that the `--host 0.0.0.0` bit is important for serving to be able to
+> access your blog from outside the container.
 
 Alternative Workflows
 ---------------------
@@ -118,7 +130,7 @@ images complies with any relevant licenses for all software contained within.
 
 
 [^1]: Serving this way should only be done for development purposes. For
-    production see documentation on [deployment][1]
+    production see documentation on [deployment][4]
 
 
-[1]: https://jekyllrb.com/docs/deployment/
+[4]: https://jekyllrb.com/docs/deployment/
