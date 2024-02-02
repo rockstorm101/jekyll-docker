@@ -60,23 +60,25 @@ docker run --rm \
 > Note that the `--host 0.0.0.0` bit is important for serving to be able to
 > access your blog from outside the container.
 
+
 Alternative Workflows
 ---------------------
-
 ### Starting a blog from scratch
 
  1. Copy this [`Dockerfile`](Dockerfile) and the default [`Gemfile`](Gemfile)
     on a directory (e.g. `jekyll-docker`) and build a preliminary Docker image.
     ```
+	git clone https://github.com/rockstorm101/jekyll-docker.git
 	cd jekyll-docker
-	wget https://raw.githubusercontent.com/rockstorm101/jekyll-docker/master/Dockerfile
-	wget https://raw.githubusercontent.com/rockstorm101/jekyll-docker/master/Gemfile
     docker build -t jekyll .
     ```
 
  2. Create a new Jekyll site:
     ```
-	docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) jekyll new myblog
+	docker run --rm \
+	    -v ${PWD}:/srv/jekyll \
+		-u $(id -u):$(id -g) \
+		jekyll new myblog
     ```
 
  3. The previous step should have produced a new fresh Jekyll site at
@@ -86,15 +88,19 @@ Alternative Workflows
 
 ### Add or Update Gems
 
-Update your `Gemfile` with new/updated dependencies. Delete `Gemfile.lock` and
-[(re)build your custom Docker image](#1-build-your-custom-docker-image). It
-will (bundle) install the latest gems in accordance with your updated
-`Gemfile`.
+ 1. Update your `Gemfile` with new/updated dependencies.
 
-Then run the container empty to re-generate the `Gemfile.lock`.
-```
-docker run --rm -v ${PWD}:/srv/jekyll -u $(id -u):$(id -g) jekyll
-```
+ 2. Delete `Gemfile.lock` and [(re)build your custom Docker
+    image](#1-build-your-custom-docker-image) as normal. It will (bundle)
+    install the latest gems in accordance with your updated `Gemfile`.
+
+ 3. Run the container empty to re-generate the `Gemfile.lock`.
+    ```
+    docker run --rm \
+        -v ${PWD}:/srv/jekyll \
+        -u $(id -u):$(id -g) \
+        jekyll
+    ```
 
 
 ### Additional Packages
