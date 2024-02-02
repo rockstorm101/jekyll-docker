@@ -41,8 +41,8 @@ Build:
 ```
 docker run --rm \
     -v ${PWD}:/srv/jekyll \
-	-u $(id -u):$(id -g) \
-	jekyll build
+    -u $(id -u):$(id -g) \
+    jekyll build
 ```
 
 Serve[^1]:
@@ -68,17 +68,17 @@ Alternative Workflows
  1. Copy this [`Dockerfile`](Dockerfile) and the default [`Gemfile`](Gemfile)
     on a directory (e.g. `jekyll-docker`) and build a preliminary Docker image.
     ```
-	git clone https://github.com/rockstorm101/jekyll-docker.git
-	cd jekyll-docker
+    git clone https://github.com/rockstorm101/jekyll-docker.git
+    cd jekyll-docker
     docker build -t jekyll .
     ```
 
  2. Create a new Jekyll site:
     ```
-	docker run --rm \
-	    -v ${PWD}:/srv/jekyll \
-		-u $(id -u):$(id -g) \
-		jekyll new myblog
+    docker run --rm \
+        -v ${PWD}:/srv/jekyll \
+        -u $(id -u):$(id -g) \
+        jekyll new myblog
     ```
 
  3. The previous step should have produced a new fresh Jekyll site at
