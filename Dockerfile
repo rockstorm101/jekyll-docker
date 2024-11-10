@@ -18,7 +18,7 @@ RUN set -eux; gem install bundler
 # Install extra packages if needed
 RUN set -eux; \
 	if [ -e packages ]; then \
-	    cat packages | apk add --no-cache --virtual extra-pkgs; \
+	    apk add --no-cache --virtual extra-pkgs $(cat packages); \
     fi
 
 # Install gems from `Gemfile` via Bundler
