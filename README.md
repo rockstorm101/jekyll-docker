@@ -122,6 +122,16 @@ configured exactly as is used by [GitHub Pages][3].
 [3]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll
 
 
+Tags and Variants
+-----------------
+This image uses the stable, Alpine-based [Ruby Docker image][5], rather than
+those based on Debian in order to produce smaller images. The Ruby image used
+could be simply "ruby:alpine", however we set it at a specific ruby version,
+i.e. "ruby:3.4.4-alpine", to detect breaking changes at build time.
+
+[5]: https://hub.docker.com/_/ruby
+
+
 License
 -------
 View [license information](LICENSE) for the software contained in this image.
